@@ -17,7 +17,7 @@ RUN curl -o boost_1_69_0.tar.gz -SL https://dl.bintray.com/boostorg/release/1.69
     tar -xzf boost_1_69_0.tar.gz && \
     cd boost_1_69_0 && \
     ./bootstrap.sh  && \
-    ./b2  -j 8 stage release && \
+    ./b2 stage release && \
     ./b2 install  || \
     ./b2 install || echo "force rebuild 1" && \
     cd .. && rm -rf boost_1_69_0 boost_1_69_0.tar.gz
@@ -52,7 +52,7 @@ RUN git clone https://github.com/mongodb/mongo-cxx-driver.git && \
     grep count src/mongocxx/options/change_stream.cpp && \
     mkdir _build && cd _build && \
     cmake -DCMAKE_CXX_FLAGS='' -DBOOST_ROOT=/usr/local -DBSONCXX_POLY_USE_BOOST=1 -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/usr/local .. && \
-    make -j 8 && make install && \
+    make && make install && \
     cd ../.. && \
     rm -rf mongo-cxx-driver 
 RUN git clone git://github.com/zeromq/libzmq.git && \
@@ -60,13 +60,13 @@ RUN git clone git://github.com/zeromq/libzmq.git && \
     git checkout master && \
     mkdir _build && cd _build  && \
     cmake -DCMAKE_CXX_FLAGS='' -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/usr/local .. && \
-    make -j 8 && make install && \
+    make && make install && \
     cd ../.. && \
     rm -rf libzmq
 RUN git clone https://github.com/zeromq/cppzmq.git && \
     cd cppzmq && mkdir _build && cd _build && \
     cmake -DCMAKE_CXX_FLAGS='' -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/usr/local .. && \
-    make -j 8 && make install && \
+    make && make install && \
     cd ../.. && \
     rm -rf cppzmq
 RUN curl -o gflags-2.2.2.tar.gz -SL https://github.com/gflags/gflags/archive/v2.2.2.tar.gz && \
@@ -74,7 +74,7 @@ RUN curl -o gflags-2.2.2.tar.gz -SL https://github.com/gflags/gflags/archive/v2.
     cd gflags-2.2.2 && \
     mkdir _build && cd _build && \
     cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/usr/local -DBUILD_SHARED_LIBS=ON .. && \
-    make -j 8 && make install && \
+    make && make install && \
     cd ../.. && \
     rm -rf gflags-2.2.2 gflags-2.2.2.tar.gz
 RUN git clone https://github.com/facebook/rocksdb.git && \
@@ -82,7 +82,7 @@ RUN git clone https://github.com/facebook/rocksdb.git && \
     git checkout origin/5.18.fb && \
     mkdir _build && cd _build && \
     cmake -DCMAKE_BUILD_TYPE=Release -DWITH_TESTS=OFF -DCMAKE_INSTALL_PREFIX=/usr/local .. && \
-    make -j 8 && make install && \
+    make && make install && \
     cd ../.. && \
     rm -rf rocksdb
 RUN apk add python3-dev && \
